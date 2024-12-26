@@ -9,34 +9,59 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class App {
     public static void main(String[] args) {
     	
-//		  //insert data in table
+//		//insert data in table
 //        Student s = new Student();
 //        s.setId(103);
 //        s.setName("shivam");
 //        s.setMarks(72);
 //
-//            Configuration configuration = new Configuration().configure().addAnnotatedClass(Student.class);
-//            StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-//            ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
-//            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-//            Session session = sessionFactory.openSession();
-//            Transaction transaction = session.beginTransaction();
-//            session.save(s);//save data in database.
-//            transaction.commit();
-//            sessionFactory.close();
+//        Configuration configuration = new Configuration().configure().addAnnotatedClass(Student.class);
+//        StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+//        ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
+//        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+//        Session session = sessionFactory.openSession();
+//        Transaction transaction = session.beginTransaction();
+//        session.save(s);//save data in database.
+//        transaction.commit();
+//        sessionFactory.close();
             
     	
-    		//Fetch data from database table
-    		Student s = new Student();
-            Configuration configuration = new Configuration().configure().addAnnotatedClass(Student.class);
-            StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-            ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
-            SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-            Session session = sessionFactory.openSession();
-            Transaction transaction = session.beginTransaction();
-            s = session.get(Student.class, 102);//fetching data from student table for id= 102
-            transaction.commit();
-            sessionFactory.close();
-            System.out.println(s);
+//    	//Fetch data from database table
+//    	  Student s = new Student();
+//        Configuration configuration = new Configuration().configure().addAnnotatedClass(Student.class);
+//        StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+//        ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
+//        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+//        Session session = sessionFactory.openSession();
+//        Transaction transaction = session.beginTransaction();
+//        s = session.get(Student.class, 102);//fetching data from student table for id= 102
+//        transaction.commit();
+//        sessionFactory.close();
+//        System.out.println(s);
+    	
+    //With multiple tables--Student and LAptop
+    	
+    	Laptop lp = new Laptop();
+        lp.setLid(104);
+        lp.setLname("Dell");
+        
+	      Student s = new Student();
+	      s.setId(5);
+	      s.setName("Shivam");
+	      s.setMarks(88);
+	      s.setLaptop(lp);
+      
+      
+      
+      Configuration configuration = new Configuration().configure().addAnnotatedClass(Student.class).addAnnotatedClass(Laptop.class);
+      StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+      ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
+      SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+      Session session = sessionFactory.openSession();
+      Transaction transaction = session.beginTransaction();
+      session.save(s);
+      session.save(lp);
+      transaction.commit();
+      sessionFactory.close();	
      }  
 }
